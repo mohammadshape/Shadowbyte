@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import io.kayt.shadowbyte.Shadowbyte
 import io.kayt.shadowbyte.sample.theme.ShadowbyteTheme
 
 class MainActivity : ComponentActivity() {
@@ -44,4 +45,10 @@ fun GreetingPreview() {
     ShadowbyteTheme {
         Greeting("Android")
     }
+}
+
+object ComposeTabBar : Shadowbyte.Shadowed {
+
+    @Shadowbyte.Property("androidx.compose.material3.TabRowKt.ScrollableTabRowMinimumTabWidth")
+    var ScrollableTabRowMinimumTabWidth: Float = default()
 }
