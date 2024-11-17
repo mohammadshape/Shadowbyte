@@ -40,7 +40,6 @@ android {
         compose = true
     }
 }
-
 dependencies {
     implementation(project(":shadowbyte"))
     ksp(project(":shadowbyte-ksp"))
@@ -56,4 +55,7 @@ dependencies {
     androidTestImplementation(platform(libs.androidx.compose.bom))
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+}
+ksp {
+    arg("buildDir", project.layout.buildDirectory.dir("intermediates/shadowed").get().asFile.path)
 }

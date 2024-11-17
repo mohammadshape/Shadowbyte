@@ -7,16 +7,23 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.Tab
+import androidx.compose.material3.TabRowDefaults
+import androidx.compose.material3.TabRowDefaults.ScrollableTabRowEdgeStartPadding
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import io.kayt.shadowbyte.Shadowbyte.Property
 import io.kayt.shadowbyte.Shadowbyte.Shadowed
 import io.kayt.shadowbyte.sample.theme.ShadowbyteTheme
+import io.kayt.shadowbyte.shadow
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,10 +64,26 @@ fun GreetingPreview() {
     ShadowbyteTheme {
         Greeting("Android")
     }
+    shadow<TabRowParameter> {
+        scrollableTabRowEdgeStartPadding = 10.dp
+    }
+
+
 }
 
-@Shadowed(source = "androidx.compose.material3.TabRowKt")
-object ShadowTabBarRow {
+@OptIn(ExperimentalMaterial3Api::class)
+@Shadowed(source = TopAppBarDefaults::class)
+interface TopAppBarDefaultsParameter {
     @Property
-    val ScrollableTabRowMinimumTabWidth: Float = 10f
+    var scrollableTabRowEdgeStartPadding: Dp
+}
+
+
+@Shadowed(source = TabRowDefaults::class)
+interface TabRowParameter {
+    @Property(name = "ScrollableTabRowEdgeStartPadding0")
+    var scrollableTabRowEdgeStartPadding: Dp
+
+    @Property
+    var Salam : Int
 }
