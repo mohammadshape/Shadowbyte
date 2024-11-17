@@ -21,5 +21,8 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "Shadowbyte"
-include(":sample")
 include(":shadowbyte")
+include(":shadowbyte-ksp")
+
+// Sample App
+include(":sample")
