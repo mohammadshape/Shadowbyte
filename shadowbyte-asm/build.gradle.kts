@@ -22,6 +22,9 @@ dependencies {
     compileOnly(libs.kotlin.gradlePlugin)
 }
 
+group = "io.kayt.shadowbyte_asm"
+version = "1.0.0"
+
 gradlePlugin {
     plugins {
         register("ShadowByte") {
