@@ -1,4 +1,5 @@
 pluginManagement {
+    includeBuild("shadowbyte-asm")
     repositories {
         google {
             content {
