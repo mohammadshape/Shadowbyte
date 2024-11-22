@@ -7,7 +7,6 @@ import java.util.Locale
 import kotlin.reflect.KClass
 import kotlin.reflect.full.findAnnotation
 import kotlin.reflect.full.memberProperties
-import kotlin.reflect.javaType
 import kotlin.reflect.jvm.jvmErasure
 
 
@@ -30,14 +29,23 @@ inline fun <reified T : Any> shadow(block: T.() -> Unit) {
                 val prop = properties.first { methodName.contains(it.name) }
                 val propertyAnnotation = prop.findAnnotation<Shadowbyte.Property>()
                 val sourceProperty = propertyAnnotation!!.name
-                return@newProxyInstance getShadow(sourceClass, sourceProperty, prop.returnType.jvmErasure.javaPrimitiveType ?: prop.returnType.jvmErasure.java)
+                return@newProxyInstance getShadow(
+                    sourceClass,
+                    sourceProperty,
+                    prop.returnType.jvmErasure.javaPrimitiveType ?: prop.returnType.jvmErasure.java
+                )
             }
 
             methodName.startsWith("set") && args != null && args.size == 1 -> {
                 val prop = properties.first { methodName.contains(it.name) }
                 val propertyAnnotation = prop.findAnnotation<Shadowbyte.Property>()
                 val sourceProperty = propertyAnnotation!!.name
-                return@newProxyInstance setShadow(sourceClass, sourceProperty,prop.returnType.jvmErasure.javaPrimitiveType ?: prop.returnType.jvmErasure.java, args.first())
+                return@newProxyInstance setShadow(
+                    sourceClass,
+                    sourceProperty,
+                    prop.returnType.jvmErasure.javaPrimitiveType ?: prop.returnType.jvmErasure.java,
+                    args.first()
+                )
             }
 
             else -> throw UnsupportedOperationException("Unknown method: $methodName")
@@ -46,7 +54,7 @@ inline fun <reified T : Any> shadow(block: T.() -> Unit) {
 }
 
 fun getShadow(clazz: String, property: String, propertyType: Class<*>): Any? {
-    return accessShadow(Accessor.GET, clazz, property,propertyType, Unit)
+    return accessShadow(Accessor.GET, clazz, property, propertyType, Unit)
 }
 
 fun setShadow(clazz: String, property: String, propertyType: Class<*>, value: Any?) {
@@ -68,7 +76,7 @@ private fun accessShadow(
     accessor: Accessor,
     className: String,
     property: String,
-    propertyType : Class<*>,
+    propertyType: Class<*>,
     value: Any?
 ): Any? {
     val clazz = Class.forName(className)
